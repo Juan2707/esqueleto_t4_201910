@@ -11,9 +11,20 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	/**
 	 * Metodo constructor
 	 */
-	public VOMovingViolation(  )
-	{
-		// TODO Implementar
+	private int id;
+	private String location;
+	private String ticketIssueDate;
+	private int totalPaid;
+	private String accidentIndicator;
+	private String violationDescription;
+
+	public VOMovingViolation(int pId, String pLocation, String pTicketIssueDate, int pTotalPaid, String pAccidentIndicator,String pViolationDescription){
+		id=pId;
+		location=pLocation;
+		ticketIssueDate=pTicketIssueDate;
+		totalPaid=pTotalPaid;
+		accidentIndicator=pAccidentIndicator;
+		violationDescription=pViolationDescription;
 	}	
 	
 	/**
@@ -21,7 +32,7 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public int objectId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}	
 	
 	
@@ -30,7 +41,7 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public String getLocation() {
 		// TODO Auto-generated method stub
-		return "";
+		return location;
 	}
 
 	/**
@@ -38,7 +49,7 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public String getTicketIssueDate() {
 		// TODO Auto-generated method stub
-		return "";
+		return ticketIssueDate;
 	}
 	
 	/**
@@ -46,7 +57,7 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public int getTotalPaid() {
 		// TODO Auto-generated method stub
-		return 0;
+		return totalPaid;
 	}
 	
 	/**
@@ -54,7 +65,7 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public String  getAccidentIndicator() {
 		// TODO Auto-generated method stub
-		return "";
+		return accidentIndicator;
 	}
 		
 	/**
@@ -62,13 +73,30 @@ public class VOMovingViolation implements Comparable<VOMovingViolation> {
 	 */
 	public String  getViolationDescription() {
 		// TODO Auto-generated method stub
-		return "";
+		return violationDescription;
 	}
 
 	@Override
 	public int compareTo(VOMovingViolation o) {
+		//13 ticketIssueDate | 1 objectId
+		
+		int respuesta=1;
+		if(getTicketIssueDate().compareTo(o.getTicketIssueDate())>0){
+			respuesta=1;
+		}
+		else if(getTicketIssueDate().compareTo(o.getTicketIssueDate())<0){
+			respuesta=-1;
+		}
+		else{
+			if(objectId()>o.objectId()){
+				respuesta=1;
+			}
+			else if(objectId()<o.objectId()){
+				respuesta=-1;
+			}
+		}
 		// TODO implementar la comparacion "natural" de la clase
-		return 0;
+		return respuesta;
 	}
 	
 	public String toString()

@@ -1,9 +1,16 @@
 package controller;
 
+import java.io.FileReader;
+import java.util.List;
 import java.util.Scanner;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+
 import model.data_structures.*;
 import model.util.Sort;
 import model.vo.VOMovingViolation;
+
 import view.MovingViolationsManagerView;
 
 @SuppressWarnings("unused")
@@ -18,7 +25,8 @@ public class Controller {
 
 	// Copia de la muestra de datos a ordenar 
 	Comparable<VOMovingViolation> [ ] muestraCopia;
-
+	
+	private ListaEncadenada<VOMovingViolation> lista; 
 	public Controller() {
 		view = new MovingViolationsManagerView();
 		
@@ -32,6 +40,57 @@ public class Controller {
 	 * @return numero de infracciones leidas 
 	 */
 	public int loadMovingViolations() {
+		try{
+			FileReader n1 = new FileReader("./data/Moving_Violations_Issued_In_January_2018_ordered.csv");
+			CSVReader n2 = new CSVReaderBuilder(n1).withSkipLines(1).build();
+			
+			List <String[]> info = n2.readAll();
+			
+			lista = new ListaEncadenada<VOMovingViolation>();
+			
+			for(int i=0;i<info.size();i++){
+				lista.insertarCola(new VOMovingViolation(Integer.parseInt(info.get(i)[0]), info.get(i)[2], info.get(i)[13],Integer.parseInt(info.get(i)[9]), info.get(i)[12], info.get(i)[15]));
+			}
+			
+			
+			
+			n1.close();
+			n2.close();
+			FileReader n3 = new FileReader("./data/Moving_Violations_Issued_In_February_2018_ordered.csv");
+			CSVReader n4 = new CSVReaderBuilder(n1).withSkipLines(1).build();
+			
+			List <String[]> info2 = n4.readAll();
+			
+			lista = new ListaEncadenada<VOMovingViolation>();
+			
+			for(int i=0;i<info2.size();i++){
+				lista.insertarCola(new VOMovingViolation(Integer.parseInt(info2.get(i)[0]), info2.get(i)[2], info2.get(i)[13],Integer.parseInt(info2.get(i)[9]), info2.get(i)[12], info2.get(i)[15]));
+			}
+			
+			
+			
+			n3.close();
+			n4.close();
+			FileReader n5 = new FileReader("./data/Moving_Violations_Issued_In_January_2018_ordered.csv");
+			CSVReader n6 = new CSVReaderBuilder(n1).withSkipLines(1).build();
+			
+			List <String[]> info3 = n6.readAll();
+			
+			lista = new ListaEncadenada<VOMovingViolation>();
+			
+			for(int i=0;i<info3.size();i++){
+				lista.insertarCola(new VOMovingViolation(Integer.parseInt(info3.get(i)[0]), info3.get(i)[2], info3.get(i)[13],Integer.parseInt(info3.get(i)[9]), info3.get(i)[12], info3.get(i)[15]));
+			}
+			
+			
+			
+			n5.close();
+			n6.close();
+		}
+		
+		catch(Exception e){
+			view.printMensage(e.getMessage());
+		}
 		// TODO Los datos de los archivos deben guardarse en la Estructura de Datos definida
 		
 		return 0;
